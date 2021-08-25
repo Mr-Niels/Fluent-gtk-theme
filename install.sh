@@ -25,8 +25,8 @@ fi
 SASSC_OPT="-M -t expanded"
 
 THEME_NAME=Fluent
-THEME_VARIANTS=('' '-purple' '-pink' '-red' '-orange' '-yellow' '-green' '-teal' '-grey' '-martian')
-THEME_COLOR_VARIANTS=('default' 'purple' 'pink' 'red' 'orange' 'yellow' 'green' 'teal' 'grey' 'martian')
+THEME_VARIANTS=('' '-purple' '-pink' '-red' '-orange' '-yellow' '-green' '-teal' '-grey' '-martian' '-keppel')
+THEME_COLOR_VARIANTS=('default' 'purple' 'pink' 'red' 'orange' 'yellow' 'green' 'teal' 'grey' 'martian' 'keppel')
 COLOR_VARIANTS=('' '-light' '-dark')
 SIZE_VARIANTS=('' '-compact')
 
@@ -51,7 +51,7 @@ OPTIONS:
 
   -n, --name NAME         Specify theme name (Default: $THEME_NAME)
 
-  -t, --theme VARIANT     Specify theme color variant(s) [default|purple|pink|red|orange|yellow|green|teal|grey|martian|all] (Default: blue)
+  -t, --theme VARIANT     Specify theme color variant(s) [default|purple|pink|red|orange|yellow|green|teal|grey|martian|keppel|all] (Default: blue)
 
   -c, --color VARIANT     Specify color variant(s) [standard|light|dark] (Default: All variants)s)
 
@@ -329,6 +329,10 @@ while [[ "$#" -gt 0 ]]; do
             themes+=("${THEME_VARIANTS[9]}")
             shift
             ;;
+          keppel)
+            themes+=("${THEME_VARIANTS[10]}")
+            shift
+            ;;
           all)
             themes+=("${THEME_VARIANTS[@]}")
             shift
@@ -578,6 +582,9 @@ install_theme_color() {
         ;;
       -martian)
         theme_color='martian'
+        ;;
+      -keppel)
+        theme_color='keppel'
         ;;
       -grey)
         theme_color='grey'

@@ -55,6 +55,7 @@
     @if ($theme == 'teal') { @return $teal-500; }
     @if ($theme == 'grey') { @return $grey-700; }
     @if ($theme == 'martian') {@return $martian; }
+    @if ($theme == 'keppel') {@return $keppel; }
   } @else {
     @if ($theme == 'default') { @return #3281ea; }
     @if ($theme == 'purple') { @return $purple-300; }
@@ -66,6 +67,7 @@
     @if ($theme == 'teal') { @return $teal-400; }
     @if ($theme == 'grey') { @return $grey-600; }
     @if ($theme == 'martian') { @return $martian; }
+    @if ($theme == 'keppel') {@return $keppel; }
   }
 }
 
