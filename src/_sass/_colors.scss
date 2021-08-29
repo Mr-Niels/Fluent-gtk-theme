@@ -12,6 +12,7 @@
   // Allow 'light' or 'dark' to $color
   @if ($color == 'light') { $color: white; }
   @if ($color == 'dark') { $color: black; }
+  @if ($color == 'avudark') {$color: black; }
 
   // Calculate color brightness according to https://www.w3.org/TR/AERT/#color-contrast
   $brightness: (red($color) * 299 + green($color) * 587 + blue($color) * 114) / 1000;
@@ -80,6 +81,8 @@
   @if ($variant == 'light' and $topbar == 'dark' and $state=='backdrop') { @return #3c3c3c; }
   @if ($variant == 'dark' and $state=='normal') { @return #202020; }
   @if ($variant == 'dark' and $state=='backdrop') { @return #2C2C2C; }
+  @if ($variant == 'avudark' and $state=='normal') { @return darken($ebony-clay,2%); }
+  @if ($variant == 'avudark' and $state=='backdrop') { @return $ebony-clay; }
 }
 
 //
@@ -87,19 +90,19 @@
 //
 $primary:                               theme(color);
 $entry-highlight:                       lighten($primary, 25%);
-$drop_target_color:                     #FF7043;
+$drop_target_color:                     if($variant == 'avudark', $martian, #FF7043);
 
-$background:                            if($variant == 'light', #F2F2F2, #333333);
-$surface:                               if($variant == 'light', #FFFFFF, #3C3C3C);
-$base:                                  if($variant == 'light', #FFFFFF, #2B2B2B); // semi-surface with 1dp elevation
-$base-alt:                              if($variant == 'light', #FAFAFA, #303030);
-
+$background:                            if($variant == 'avudark', rgba(lighten($ebony-clay,0%),0.9), if($variant == 'light', #F2F2F2, #333333)); // background (tweaks)
+$surface:                               if($variant == 'avudark', rgba(lighten($ebony-clay,4%),0.9), if($variant == 'light', #FFFFFF, #3C3C3C)); // menus etc.
+$base:                                  if($variant == 'avudark', rgba(lighten($ebony-clay,6%),0.9), if($variant == 'light', #FFFFFF, #2B2B2B)); // semi-surface with 1dp elevation (background of nautilus, drop-downs, buttonc etc.)
+$base-alt:                              if($variant == 'avudark', rgba(lighten($ebony-clay,2%),0.9), if($variant == 'light', #FAFAFA, #303030)); // side panels
+// $base: transparent;
 $scrim:                                 rgba(black, 0.6);
 $scrim-alt:                             rgba(black, 0.3);
 $scrim-inverse:                         rgba(white, 0.1);
 
-$menu:                                  if($opacity == 'default', rgba($surface, 0.98), $surface);
-$tooltip:                               rgba(#363636, 0.9);
+$menu:                                  if($opacity == 'default', rgba($surface, 0.9), $surface);
+$tooltip:                               if($variant == 'avudark', $surface, rgba(#363636, 0.9));
 $titlebar:                              titlebar(normal);
 $titlebar-backdrop:                     titlebar(backdrop);
 $panel:                                 if($topbar == 'light', rgba(#F7F7F7, 0.8), rgba(#1F1F1F, 0.8));
@@ -108,10 +111,10 @@ $panel-solid:                           if($topbar == 'light', #F7F7F7, #1F1F1F)
 $blur_opacity:                          if($variant == 'light', 0.85, 0.5);
 
 @if $blur == 'true' {
-  $background:                          if($variant == 'light', rgba(#FFFFFF, $blur_opacity), rgba(#333333, $blur_opacity));
-  $surface:                             if($variant == 'light', rgba(#FFFFFF, $blur_opacity), rgba(#3C3C3C, $blur_opacity));
-  $base:                                if($variant == 'light', rgba(#FFFFFF, $blur_opacity), rgba(#2B2B2B, $blur_opacity)); // semi-surface with 1dp elevation
-  $base-alt:                            if($variant == 'light', rgba(#FAFAFA, $blur_opacity), rgba(#303030, $blur_opacity));
+  $background:                          if($variant == 'light', rgba(#FFFFFF, $blur_opacity), rgba($background, $blur_opacity));
+  $surface:                             if($variant == 'light', rgba(#FFFFFF, $blur_opacity), rgba($surface, $blur_opacity));
+  $base:                                if($variant == 'light', rgba(#FFFFFF, $blur_opacity), rgba($base, $blur_opacity)); // semi-surface with 1dp elevation
+  $base-alt:                            if($variant == 'light', rgba(#FAFAFA, $blur_opacity), rgba($base-alt, $blur_opacity));
   $titlebar:                            rgba(titlebar(normal), $blur_opacity);
   $titlebar-backdrop:                   rgba(titlebar(backdrop), $blur_opacity);
   $panel:                               if($topbar == 'light', rgba(#F7F7F7, $blur_opacity), rgba(#1F1F1F, $blur_opacity));
@@ -124,9 +127,9 @@ $blur_opacity:                          if($variant == 'light', 0.85, 0.5);
 $link:                                  $primary;
 $link-visited:                          if($variant == 'light', $purple-500, $purple-200);
 
-$warning:                               if($variant == 'light', #F4B400, #FDD633);
-$error:                                 if($variant == 'light', #D93025, #F28B82);
-$success:                               if($variant == 'light', #0F9D58, #81C995);
+$warning:                               if($variant == 'avudark', $yellow-orange, if($variant == 'light', #F4B400, #FDD633));
+$error:                                 if($variant == 'avudark', $martian, if($variant == 'light', #D93025, #F28B82));
+$success:                               if($variant == 'avudark', $keppel, if($variant == 'light', #0F9D58, #81C995));
 
 $suggested:                             $primary;
 $destructive:                           $error;

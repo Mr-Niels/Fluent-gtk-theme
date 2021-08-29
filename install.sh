@@ -27,7 +27,7 @@ SASSC_OPT="-M -t expanded"
 THEME_NAME=Fluent
 THEME_VARIANTS=('' '-purple' '-pink' '-red' '-orange' '-yellow' '-green' '-teal' '-grey' '-martian' '-keppel')
 THEME_COLOR_VARIANTS=('default' 'purple' 'pink' 'red' 'orange' 'yellow' 'green' 'teal' 'grey' 'martian' 'keppel')
-COLOR_VARIANTS=('' '-light' '-dark')
+COLOR_VARIANTS=('' '-light' '-dark' '-avudark')
 SIZE_VARIANTS=('' '-compact')
 
 if [[ "$(command -v gnome-shell)" ]]; then
@@ -53,7 +53,7 @@ OPTIONS:
 
   -t, --theme VARIANT     Specify theme color variant(s) [default|purple|pink|red|orange|yellow|green|teal|grey|martian|keppel|all] (Default: blue)
 
-  -c, --color VARIANT     Specify color variant(s) [standard|light|dark] (Default: All variants)s)
+  -c, --color VARIANT     Specify color variant(s) [standard|light|dark|avudark] (Default: All variants)s)
 
   -s, --size VARIANT      Specify size variant [standard|compact] (Default: All variants)
 
@@ -83,6 +83,8 @@ install() {
 
   [[ "$color" == '-dark' ]] && local ELSE_DARK="$color"
   [[ "$color" == '-light' ]] && local ELSE_LIGHT="$color"
+  [[ "$color" == '-avudark' ]] && local ELSE_DARK="$color"
+  echo "ELSE_DARK = '${ELSE_DARK:-}'"
 
   if [[ "$window" == 'round' ]]; then
     round='-round'
@@ -437,6 +439,10 @@ while [[ "$#" -gt 0 ]]; do
             ;;
           dark)
             colors+=("${COLOR_VARIANTS[2]}")
+            shift
+            ;;
+          avudark)
+            colors+=("${COLOR_VARIANTS[3]}")
             shift
             ;;
           -*)

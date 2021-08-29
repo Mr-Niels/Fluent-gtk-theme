@@ -1,7 +1,7 @@
 
 @import 'tweaks-temp';
 
-$asset_suffix: if($variant == 'dark', '-dark', '');
+$asset_suffix: if($variant=='avudark','-avudark',if($variant == 'dark', '-dark', ''));
 $extra_background_clip: if($variant == 'light', padding-box, border-box);
 
 $panel-corner-radius: 0;
